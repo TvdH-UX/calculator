@@ -31,7 +31,7 @@ const divide = function(number1, number2){
 const operate = function(operator, number1, number2){
     switch (operator) {
         case '+':
-            return add(Number(number1), Number(number2));
+            return add(parseInt(number1), parseInt(number2));
         case '-':
             return subtract(number1, number2);
         case '×':
@@ -45,40 +45,56 @@ const operate = function(operator, number1, number2){
 // the number buttons… you should be storing the ‘display value’ 
 // in a variable somewhere for use in the next step
 
-// Let user enter numbers
-// Combine these numbers into a single number in a variable
-// If an operator is used, save the variable for later
-// Clear the variable to enter a new number
-// If another operator is used, save the variable again and start over
-// If no number was entered before operator, disregard operator
-// If two operators entered in a row, disregard previous operator
+// Set the previous number to 0 (as per the display)
+// Let users enter a number
+// Save number as current number
+// If user enter an operator, save to currentOperator
+// If user then starts typing a new number, save current number to previous number
+// If user enters equals, fire operate function with given variables
+// Save the result to a result variable
+// Display the result on the screen
+// Save result as previous number
 
-let previousNumber = 0;
+let previousNumber = '';
 let currentNumber = '';
 let currentOperator = '';
-let result = '';
+let result;;
 
+// Entering numbers
 numbers.forEach((number) => {
     number.addEventListener('click', () => {
         currentNumber += number.value;
         display.textContent = currentNumber;
+        console.log("Previous number: " + previousNumber);
+        console.log("Current number: " + currentNumber);
     })
-}) 
+});
 
+// Entering an operator
 operators.forEach((operator) => {
     operator.addEventListener('click', () => {
-        previousNumber = currentNumber;
-        currentNumber = '';
         currentOperator = operator.value;
         display.textContent = currentOperator;
+        if(result){
+            previousNumber = result;
+        } else {
+            previousNumber = currentNumber;       
+        }
+        currentNumber = '';
+        console.log("Previous number: " + previousNumber);
+        console.log("Current number: " + currentNumber);
     })
-})
+});
 
-equals.addEventListener('click', function(){
+// When the user enters =
+equals.addEventListener('click', () => {
+    console.log("Previous number: " + previousNumber);
+    console.log("Current number: " + currentNumber);
+    console.log("Operator: " + currentOperator);
     result = operate(currentOperator, previousNumber, currentNumber);
+    console.log(result);
     display.textContent = result;
-})
-
+});
 
 // const calculatorNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 // const calculatorOperators = ['clear', 'delete', '÷', '×', '-', '+', '='];
