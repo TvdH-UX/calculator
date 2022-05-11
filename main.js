@@ -41,6 +41,10 @@ const operate = function(operator, number1, number2){
     };
 };
 
+const reset = function(){
+    alert('hoi')
+}
+
 // Create the functions that populate the display when you click 
 // the number buttons… you should be storing the ‘display value’ 
 // in a variable somewhere for use in the next step
@@ -58,7 +62,7 @@ const operate = function(operator, number1, number2){
 let previousNumber = '';
 let currentNumber = '';
 let currentOperator = '';
-let result;;
+let result;
 
 // Entering numbers
 numbers.forEach((number) => {
@@ -88,49 +92,13 @@ operators.forEach((operator) => {
 
 // When the user enters =
 equals.addEventListener('click', () => {
-    console.log("Previous number: " + previousNumber);
-    console.log("Current number: " + currentNumber);
-    console.log("Operator: " + currentOperator);
-    result = operate(currentOperator, previousNumber, currentNumber);
-    console.log(result);
-    display.textContent = result;
+    if (currentNumber && currentOperator){
+        console.log("Previous number: " + previousNumber);
+        console.log("Current number: " + currentNumber);
+        console.log("Operator: " + currentOperator);
+        result = operate(currentOperator, previousNumber, currentNumber);
+        console.log("Result: " + result);
+        display.textContent = result;
+    }
+    
 });
-
-// const calculatorNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-// const calculatorOperators = ['clear', 'delete', '÷', '×', '-', '+', '='];
-
-// buttons.forEach((button) => {
-//     button.addEventListener('click', () => {
-//         const input = button.id;
-//         let currentNumber = null;
-        
-//         if(calculatorNumbers.includes(input)){
-//             display.textContent += input;
-//             currentNumber = display.textContent.trim();
-//             console.log(currentNumber);
-//         } else if (currentNumber != null && calculatorOperators.includes(input)) {
-//             inputArray.push(currentNumber);
-//             console.log(inputArray);
-//             currentNumber = null;
-//             currentOperator = input;
-//             inputArray.push(currentOperator);
-//         }
-//         console.log(inputArray);
-        
-//     })
-// })
-
-
-// buttons.forEach((button) => {
-//     button.addEventListener('click', () => {
-//         let input = button.id;
-//         let enteredNumber;
-//         let inputArray = [];
-//         let operatorArray = [];
-//         if(!(input == "clear" || input == "delete" || input == "÷" || input == "×" || input == "-" || input == "=" || input == "+")){
-//             display.textContent += input;
-//             enteredNumber = display.textContent.trim();
-//             console.log(enteredNumber);
-//         } else if (enteredNumber && (input == ""))
-//     });
-// });
