@@ -21,6 +21,10 @@ const multiply = function(number1, number2){
 };
 
 const divide = function(number1, number2){
+    if(Infinity){
+        alert("Ah ah ah, you better start over");
+        return display.textContent = "Fatal error, please restart";
+    }
     return number1 / number2;
 };
 
