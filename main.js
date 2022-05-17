@@ -1,5 +1,6 @@
 // Get elements from html file
 const display = document.querySelector('#display-content');
+const displayResult = document.querySelector('#display-result');
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const equals = document.querySelector('.equals');
@@ -64,6 +65,7 @@ let currentNumber = '';
 let currentOperator = '';
 let result = '';
 let currentResult = '';
+let previousFunctionBtn = '';
 
 // Initialize buttons function
 // First load in all the buttons that contain a number
@@ -98,24 +100,83 @@ operators.forEach((operator) => {
 
 const handleOperator = function(operator) {
     // If else (calculate when equals is not used)
-    currentOperator = operator;
-    previousNumber = currentNumber;
-    display.textContent = currentOperator;
-    currentNumber = '';
+    // if(result){
+    //     console.log("we're in")
+    //     currentOperator = operator;
+    //     display.textContent = currentOperator;
+    //     handleEquals();
+    // }
+    if (!previousFunctionBtn || previousFunctionBtn == '='){
+        currentOperator = operator;
+        previousNumber = currentNumber;
+        display.textContent = currentOperator;
+        currentNumber = '';
+        previousFunctionBtn = operator;
+        console.log(previousFunctionBtn);
+    } else if (previousFunctionBtn == '+' || previousFunctionBtn == '-' || previousFunctionBtn == '×' || previousFunctionBtn == '÷') {
+        console.log("we're in");
+        console.log("previous number: " +  previousNumber);
+        console.log("current number: " +  currentNumber);
+        console.log("current operator: " + currentOperator);
+        handleEquals();
+        // console.log(result);
+        currentOperator = operator;
+        previousNumber = currentNumber;
+        display.textContent = currentOperator;
+        currentNumber = '';
+        previousFunctionBtn = operator;
+        console.log(previousFunctionBtn);
+        console.log("new operator: " + currentOperator);
+
+    //     currentOperator = operator;
+    //     previousNumber = currentNumber;
+    //     display.textContent = currentOperator;
+    //     currentNumber = '';
+    //     previousFunctionBtn = operator;
+    //     console.log(previousFunctionBtn);
+    }
+    
 };
 
 equals.addEventListener('click', () => {
-    if(previousNumber && currentOperator && currentNumber){
-        result = operate(currentOperator, previousNumber, currentNumber);
-        display.textContent = result;
-        currentNumber = result;
-        currentResult = result;
-        console.log(previousNumber);
-        console.log(currentNumber);
-    }
+    handleEquals();
 });
 
+const handleEquals = function(){
+    if(previousNumber && currentOperator && currentNumber){
+        result = operate(currentOperator, previousNumber, currentNumber);
+        displayResult.textContent = result;
+        display.textContent = "";
+        currentNumber = result;
+        // currentResult = result;
+        // currentOperator = '';
+        console.log(previousNumber);
+        console.log(currentNumber);
+        previousFunctionBtn = '=';
+        console.log(previousFunctionBtn);
+    }
+}
+
+
+
+// equals.addEventListener('click', () => {
+//     if(previousNumber && currentOperator && currentNumber){
+//         result = operate(currentOperator, previousNumber, currentNumber);
+//         display.textContent = result;
+//         currentNumber = result;
+//         currentResult = result;
+//         console.log(previousNumber);
+//         console.log(currentNumber);
+//     }
+// });
+
+// If current result same as previous result
 // If last input is result
 // If a second operator variable is filled, first do calculation
 // Reset the second operator variable to contain nothing
 // Check against current result
+
+// The moment another operator is pressed
+// Check something
+// Calculate result
+// Continue inputs
