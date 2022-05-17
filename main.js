@@ -45,76 +45,72 @@ const operate = function(operator, number1, number2){
 // the number buttons… you should be storing the ‘display value’ 
 // in a variable somewhere for use in the next step
 
-// Let user enter numbers
-// Combine these numbers into a single number in a variable
-// If an operator is used, save the variable for later
-// Clear the variable to enter a new number
-// If another operator is used, save the variable again and start over
-// If no number was entered before operator, disregard operator
-// If two operators entered in a row, disregard previous operator
 
-let previousNumber = 0;
+// ALGORITHM
+// Initialize number buttons for user to click
+// Initialize operator buttons for user to click
+// Initialize clear button for user to start fresh
+// When a user inputs a number
+// Display number on calculator display
+// Save the value on the display
+
+// Initialize variables to save values in to calculate with
+let previousNumber = '';
 let currentNumber = '';
 let currentOperator = '';
 let result = '';
+let currentResult = '';
 
+// Initialize buttons function
+// First load in all the buttons that contain a number
+// Make each number button clickable
+// When a user clicks a number
+// Update the display value to the entered number
 numbers.forEach((number) => {
     number.addEventListener('click', () => {
-        currentNumber += number.value;
-        display.textContent = currentNumber;
+        handleNumber(number.value);
     })
-}) 
+});
+
+const handleNumber = function(number) {
+    currentNumber += number;
+    display.textContent = currentNumber;
+};
 
 operators.forEach((operator) => {
     operator.addEventListener('click', () => {
-        previousNumber = currentNumber;
-        currentNumber = '';
-        currentOperator = operator.value;
-        display.textContent = currentOperator;
+        handleOperator(operator.value);
     })
-})
+});
 
-equals.addEventListener('click', function(){
-    result = operate(currentOperator, previousNumber, currentNumber);
-    display.textContent = result;
-})
-
-
-// const calculatorNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-// const calculatorOperators = ['clear', 'delete', '÷', '×', '-', '+', '='];
-
-// buttons.forEach((button) => {
-//     button.addEventListener('click', () => {
-//         const input = button.id;
-//         let currentNumber = null;
-        
-//         if(calculatorNumbers.includes(input)){
-//             display.textContent += input;
-//             currentNumber = display.textContent.trim();
-//             console.log(currentNumber);
-//         } else if (currentNumber != null && calculatorOperators.includes(input)) {
-//             inputArray.push(currentNumber);
-//             console.log(inputArray);
-//             currentNumber = null;
-//             currentOperator = input;
-//             inputArray.push(currentOperator);
-//         }
-//         console.log(inputArray);
-        
-//     })
-// })
+// user enters 7
+// user enters + operator
+// user enters 3
+// user enters operator
+// equals operation happens in the background
+// currentnumber gets set to that result
 
 
-// buttons.forEach((button) => {
-//     button.addEventListener('click', () => {
-//         let input = button.id;
-//         let enteredNumber;
-//         let inputArray = [];
-//         let operatorArray = [];
-//         if(!(input == "clear" || input == "delete" || input == "÷" || input == "×" || input == "-" || input == "=" || input == "+")){
-//             display.textContent += input;
-//             enteredNumber = display.textContent.trim();
-//             console.log(enteredNumber);
-//         } else if (enteredNumber && (input == ""))
-//     });
-// });
+const handleOperator = function(operator) {
+    // If else (calculate when equals is not used)
+    currentOperator = operator;
+    previousNumber = currentNumber;
+    display.textContent = currentOperator;
+    currentNumber = '';
+};
+
+equals.addEventListener('click', () => {
+    if(previousNumber && currentOperator && currentNumber){
+        result = operate(currentOperator, previousNumber, currentNumber);
+        display.textContent = result;
+        currentNumber = result;
+        currentResult = result;
+        console.log(previousNumber);
+        console.log(currentNumber);
+    }
+});
+
+// If last input is result
+// If a second operator variable is filled, first do calculation
+// Reset the second operator variable to contain nothing
+// Check against current result
