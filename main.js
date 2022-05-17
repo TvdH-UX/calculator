@@ -31,7 +31,7 @@ const divide = function(number1, number2){
 const operate = function(operator, number1, number2){
     switch (operator) {
         case '+':
-            return add(Number(number1), Number(number2));
+            return add(parseInt(number1), parseInt(number2));
         case '-':
             return subtract(number1, number2);
         case '×':
@@ -40,6 +40,10 @@ const operate = function(operator, number1, number2){
             return divide(number1, number2);
     };
 };
+
+const reset = function(){
+    alert('hoi')
+}
 
 // Create the functions that populate the display when you click 
 // the number buttons… you should be storing the ‘display value’ 
@@ -77,6 +81,7 @@ const handleNumber = function(number) {
     display.textContent = currentNumber;
 };
 
+// Entering an operator
 operators.forEach((operator) => {
     operator.addEventListener('click', () => {
         handleOperator(operator.value);

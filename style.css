@@ -51,11 +51,11 @@ button:hover {
     font-size: 1.5em;
 }
 
-#clear{
+.clear{
     grid-column: span 2;
 }
 
-#delete{
+.delete{
     grid-column: span 2;
 }
 
