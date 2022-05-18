@@ -4,8 +4,8 @@ const displayResult = document.querySelector('#display-result');
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const equals = document.querySelector('.equals');
-const clear = document.querySelectorAll('#clear');
-const del = document.querySelectorAll('#del');
+const clear = document.querySelector('.clear');
+const del = document.querySelector('.del');
 
 // Basic math operators
 const add = function(number1, number2){
@@ -90,20 +90,20 @@ const handleOperator = function(operator) {
         display.textContent = currentOperator;
         currentNumber = '';
         previousFunctionBtn = operator;
-        console.log(previousFunctionBtn);
+        // console.log(previousFunctionBtn);
     } else if (previousFunctionBtn == '+' || previousFunctionBtn == '-' || previousFunctionBtn == '×' || previousFunctionBtn == '÷') {
-        console.log("we're in");
-        console.log("previous number: " +  previousNumber);
-        console.log("current number: " +  currentNumber);
-        console.log("current operator: " + currentOperator);
+        // console.log("we're in");
+        // console.log("previous number: " +  previousNumber);
+        // console.log("current number: " +  currentNumber);
+        // console.log("current operator: " + currentOperator);
         handleEquals();
         currentOperator = operator;
         previousNumber = currentNumber;
         display.textContent = currentOperator;
         currentNumber = '';
         previousFunctionBtn = operator;
-        console.log(previousFunctionBtn);
-        console.log("new operator: " + currentOperator);
+        // console.log(previousFunctionBtn);
+        // console.log("new operator: " + currentOperator);
     };
 };
 
@@ -112,16 +112,30 @@ equals.addEventListener('click', () => {
 });
 
 const handleEquals = function(){
-    if(previousNumber && currentOperator && currentNumber){
+    if(previousNumber && currentOperator && currentNumber && previousFunctionBtn != '='){
         result = operate(currentOperator, previousNumber, currentNumber);
         displayResult.textContent = +result.toFixed(2);
         display.textContent = "";
         currentNumber = result;
-        console.log(previousNumber);
-        console.log(currentNumber);
+        // console.log(previousNumber);
+        // console.log(currentNumber);
         previousFunctionBtn = '=';
-        console.log(previousFunctionBtn);
+        // console.log(previousFunctionBtn);
     };
+};
+
+clear.addEventListener('click', () => {
+    handleClear();
+});
+
+const handleClear = function(){
+    previousNumber = '';
+    currentNumber = '';
+    currentOperator = '';
+    result = '';
+    previousFunctionBtn = '';
+    displayResult.textContent = '';
+    display.textContent = 0;
 };
 
 // If current result same as previous result
